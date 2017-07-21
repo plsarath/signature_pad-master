@@ -1,0 +1,46 @@
+<html ng-app="SignatureApp">
+    <head>
+            <link rel="stylesheet" href="SignaturePad/lib/css/signature-pad.css">
+            <script src="https://code.angularjs.org/1.6.1/angular.min.js"></script>
+             <script src="SignaturePad/lib/js/signature_pad.js"></script>
+            <script src="SignaturePad/controllers/SigPadController.js"></script>
+            <script src="SignaturePad/SignaturePadModule.js"></script>
+            <script>
+                let app = angular.module("SignatureApp",["SignaturePadModule"]);
+                 app.component("showSignature",{
+                        template:`<div>
+                                    <img width="200" height="200" ></img>
+                                    <input type="checkbox" ng-model="$ctrl.showSigPad"> Show Signaturepad
+                                    <div ng-if="$ctrl.showSigPad">
+                                     <sig-pad on-capture="$ctrl.captureSignature(signature)"></sig-pad>
+                                    </div>
+                                  </div>
+                                  `,
+                        controller:['$element',class SigPadController{
+                                constructor($element){
+                                    this.$element = $element;
+                                    this.showSigPad = true;
+                                }
+
+                                captureSignature(signature){
+                                    this.$element[0].querySelector("img").src = signature;
+
+
+                                }
+
+
+
+                        }]
+
+                 })
+
+
+            </script>
+    </head>
+
+    <body>
+       <show-signature></show-signature>
+    </body>
+
+
+</html>
